@@ -91,15 +91,6 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
-| Load Config Files
-|--------------------------------------------------------------------------
-*/
-
-// in-game configurations
-$app->configure('buildings');
-
-/*
-|--------------------------------------------------------------------------
 | Load The Application Routes
 |--------------------------------------------------------------------------
 |
@@ -108,12 +99,6 @@ $app->configure('buildings');
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
-$app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

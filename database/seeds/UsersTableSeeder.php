@@ -15,8 +15,8 @@ class UsersTableSeeder extends Seeder
     	$admin_users = [
     		[
 	    		'name' => 'admin',
-	    		'email' => 'admin@kulbahinam.com',
-	    		'password' => app('hash')->make('qqww1122'),
+	    		'email' => 'admin@admin.com',
+	    		'password' => app('hash')->make('password'),
 	    		'role' => 99
 	    	]
     	];
