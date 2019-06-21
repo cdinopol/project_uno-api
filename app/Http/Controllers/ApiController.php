@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+require_once base_path('app/Libraries/Constants.php');
+
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Auth;
 
