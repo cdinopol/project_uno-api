@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 require_once base_path('app/Libraries/Constants.php');
 
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+
 use Auth;
 
 class ApiController extends BaseController
 {
     protected $user;
+    protected $db;
 
     private $statusCode;
 
@@ -17,7 +20,7 @@ class ApiController extends BaseController
     * Auth: Carlo
     * Desc: create conroller instance, set user
     */
-    public function __construct()
+    public function __construct(Request $request)
     {
     	try {
         	$this->user = Auth::userOrFail();
@@ -31,21 +34,21 @@ class ApiController extends BaseController
 
     /*
     * Auth: Carlo
-    * Desc: set status code
-    */
-    protected function setStatusCode($statusCode)
-	{
-		$this->statusCode = $statusCode;
-		return $this;
-	}
-
-    /*
-    * Auth: Carlo
     * Desc: standard response
     */
     protected function respond($data, $headers = [])
     {
     	return response()->json($data, $this->statusCode, $headers);
+    }
+
+    /*
+    * Auth: Carlo
+    * Desc: set status code
+    */
+    protected function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+        return $this;
     }
 
     /*

@@ -22,13 +22,17 @@ $api->version('v1', function ($api) {
     ]);
 
 	// secured access
-	$api->group(['middleware' => 'api.auth'], function($api) {
+	$api->group([
+		'middleware' => ['api.auth', 'select_server'],
+		'namespace' => 'App\Http\Controllers',
+		'prefix' => '{game_server}',
+	], function($api) {
 
 	    $api->get('/test', function() {
 	        return 'hello world!';
 	    });
 
-	    $api->get('/user_test', 'App\Http\Controllers\ExampleController@get_user_id');
+	    $api->get('/user_test', 'ExampleController@get_user_id');
 	});
 
 });
