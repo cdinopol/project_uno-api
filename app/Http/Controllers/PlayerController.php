@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\Player\PlayerRepository;
 
-use App\Player;
-
-class PlayerController extends Controller
+class PlayerController extends ApiController
 {
-    //
+    protected $rPlayer;
+
+    public function __construct(PlayerRepository $rPlayer)
+    {
+        $this->rPlayer = $rPlayer;
+    }
 }

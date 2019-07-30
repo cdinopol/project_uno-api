@@ -13,6 +13,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\User\UserRepository','App\Repositories\User\UserRepositoryImpl');
+    	$repos = [
+    		'User',
+    		'Player',
+    		'Rss',
+    		'CampaignData',
+    		'Char',
+    		'Item'
+    	];
+
+    	foreach ($repos as $repo) {
+        	$this->app->bind("App\Repositories\\{$repo}\\{$repo}Repository",
+        		"App\Repositories\\{$repo}\\{$repo}RepositoryImpl");
+       	}
     }
 }

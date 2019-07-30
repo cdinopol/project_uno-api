@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
-
 use App\Repositories\User\UserRepository;
 
 class AuthController extends BaseController
