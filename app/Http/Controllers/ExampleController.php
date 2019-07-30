@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class ExampleController extends ApiController
 {
+	public function test(Request $request)
+	{
+        return $this->respondSuccess('test');
+	}
+
     public function get_user_id()
     {
     	//$test = 'hehe';

@@ -18,7 +18,7 @@ class SelectServer
     public function handle($request, Closure $next)
     {
         try {
-            $server = $request->route()[2]['game_server'];
+            $server = env('SERVER_DB_PREFIX') . $request->route()[2]['game_server'];
 
             DB::purge('mysql');
             Config::set('database.connections.mysql.database', $server);

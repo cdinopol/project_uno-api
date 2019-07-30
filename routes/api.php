@@ -15,24 +15,35 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
 
-	//public access
-	$api->post('/auth/login', [
-        'as' => 'api.auth.login',
-        'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
-    ]);
+	// Auth - public access
+	$api->group([
+		'namespace' => 'App\Http\Controllers\Auth',
+	], function($api) {
 
-	// secured access
+	    $api->post('/auth/register', [
+	        'as' => 'api.auth.register',
+	        'uses' => 'AuthController@postRegister',
+	    ]);
+
+		$api->post('/auth/login', [
+	        'as' => 'api.auth.login',
+	        'uses' => 'AuthController@postLogin',
+	    ]);
+	});
+
+	// Functions - secured access
 	$api->group([
 		'middleware' => ['api.auth', 'select_server'],
 		'namespace' => 'App\Http\Controllers',
 		'prefix' => '{game_server}',
 	], function($api) {
 
-	    $api->get('/test', function() {
-	        return 'hello world!';
-	    });
+		$api->get('/test', 'ExampleController@test');
 
-	    $api->get('/user_test', 'ExampleController@get_user_id');
+		$api->get('/user_test', 'ExampleController@get_user_id');
 	});
 
+
+	// tests
+	$api->post('/test', 'App\Http\Controllers\ExampleController@test');
 });

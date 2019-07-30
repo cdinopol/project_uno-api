@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // jwt authentication
         $this->app['auth']->viaRequest('api', function ($request) {
-            return \App\User::where('email', $request->input('email'))->first();
+            return \App\User::where('api_token', $request->input('api_token'))->first();
         });
     }
 }
