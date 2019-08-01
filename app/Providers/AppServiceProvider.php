@@ -16,8 +16,7 @@ class AppServiceProvider extends ServiceProvider
     	$repos = [
     		'User',
     		'Player',
-    		'Rss',
-    		'CampaignData',
+    		'Campaign',
     		'Char',
     		'Item'
     	];

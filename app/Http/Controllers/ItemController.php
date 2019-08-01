@@ -9,8 +9,10 @@ class ItemController extends ApiController
 {
     protected $rItem;
 
-    public function __construct(ItemRepository $rItem)
+    public function __construct(Request $request, ItemRepository $rItem)
     {
         $this->rItem = $rItem;
+
+        parent::__construct($request);
     }
 }

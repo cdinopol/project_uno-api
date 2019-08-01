@@ -6,15 +6,15 @@ require_once base_path('app/Libraries/Constants.php');
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-
 use Auth;
 
 class ApiController extends BaseController
 {
     protected $user;
+    protected $player_id;
     protected $db;
 
-    private $statusCode;
+    private $status_code;
 
     /*
     * Auth: Carlo
@@ -24,40 +24,41 @@ class ApiController extends BaseController
     {
     	try {
         	$this->user = Auth::userOrFail();
+            $this->player_id = $this->user->id;
         } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
         	return response()->json(['user_not_found'], 404);
         }
 
         // set default
-        $this->statusCode = 200;
+        $this->status_code = 200;
     }
 
     /*
     * Auth: Carlo
-    * Desc: standard response
+    * Desc: standard response for get requests
     */
     protected function respond($data, $headers = [])
     {
-    	return response()->json($data, $this->statusCode, $headers);
+    	return response()->json($data, $this->status_code, $headers);
     }
 
     /*
     * Auth: Carlo
     * Desc: set status code
     */
-    protected function setStatusCode($statusCode)
+    protected function setstatusCode($status_code)
     {
-        $this->statusCode = $statusCode;
+        $this->status_code = $status_code;
         return $this;
     }
 
     /*
     * Auth: Carlo
-    * Desc: successful create, update, delete operations
+    * Desc: successful post, put, delete operations
     */
-    protected function respondSuccess($message, $data = [])
+    protected function respondSuccess($data = [], $message = '')
 	{
-		return $this->setStatusCode(201)->respond([
+		return $this->setstatusCode(201)->respond([
 			'message' => $message,
 			'data' => $data
 		]);
@@ -65,11 +66,11 @@ class ApiController extends BaseController
 
 	/*
     * Auth: Carlo
-    * Desc: failed create, update, delete operations
+    * Desc: failed post, put, delete operations
     */
-    protected function respondFailed($message, $data = [])
+    protected function respondFailed($message = 'Dont do that boi!', $data = [])
 	{
-		return $this->setStatusCode(202)->respond([
+		return $this->setstatusCode(202)->respond([
 			'message' => $message,
 			'data' => $data
 		]);
@@ -81,7 +82,7 @@ class ApiController extends BaseController
     */
 	protected function respondError($message)
 	{
-		return $this->setStatusCode(422)->respond([
+		return $this->setstatusCode(422)->respond([
 			'message' => $message,
 			'data' => ""
 		]);

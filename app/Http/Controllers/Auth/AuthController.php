@@ -45,9 +45,7 @@ class AuthController extends BaseController
             return response()->json(['token_absent' => $e->getMessage()], 500);
         }
 
-        // server
         $server = $this->rUser->getLastServer($request->input('serial_token'));
-
         return response()->json(compact('token', 'server'));
     }
 

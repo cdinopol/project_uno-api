@@ -18,17 +18,11 @@ $api->version('v1', function ($api) {
 	// Auth - public access
 	$api->group([
 		'namespace' => 'App\Http\Controllers\Auth',
+		'prefix' => 'auth'
 	], function($api) {
 
-	    $api->post('/auth/register', [
-	        'as' => 'api.auth.register',
-	        'uses' => 'AuthController@postRegister',
-	    ]);
-
-		$api->post('/auth/login', [
-	        'as' => 'api.auth.login',
-	        'uses' => 'AuthController@postLogin',
-	    ]);
+	    $api->post('/register', 'AuthController@postRegister');
+		$api->post('/login', 'AuthController@postLogin');
 	});
 
 	// Functions - secured access
@@ -38,12 +32,17 @@ $api->version('v1', function ($api) {
 		'prefix' => '{game_server}',
 	], function($api) {
 
-		$api->get('/test', 'ExampleController@test');
+		// Player
+		$api->get('players', 'PlayerController@getPlayers');
+		$api->get('player[/{id}]', 'PlayerController@getPlayer');
 
-		$api->get('/user_test', 'ExampleController@get_user_id');
+		// Campaign
+		$api->get('campaigns', 'CampaignController@getCampaigns');
+		$api->get('campaign[/{id}]', 'CampaignController@getCampaign');
+		$api->get('campaign/verify_win', 'CampaignController@verifyWin');
+
+		// Characters
+		$api->get('chars', 'CharController@getChars');
+		$api->get('char[/{id}]', 'CharController@getChar');
 	});
-
-
-	// tests
-	$api->post('/test', 'App\Http\Controllers\ExampleController@test');
 });

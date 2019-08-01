@@ -9,26 +9,28 @@ class Player extends Model
     protected $table = 'players';
 
     protected $fillable = [
-    	'id', 'name'
+    	'id', 'name', 'level', 'gold', 'diamond'
     ];
-
-    public function rss()
+    
+    public function campaign() 
     {
-    	return $this->hasOne('Rss', 'player_id');
-    }
-
-    public function campaign_data() 
-    {
-    	return $this->hasOne('CampaignData', 'player_id');
+    	return $this->belongsToMany('App\Campaign', 'p_campaign')->withTimestamps()
+                ->as('data')
+                ->withPivot('last_used_chars')
+                ->limit(1);
     }
 
     public function chars()
     {
-    	return $this->hasMany('Char', 'player_id');
+    	return $this->belongsToMany('App\Char', 'p_chars')->withTimestamps()
+                ->as('data')
+                ->withPivot('id', 'rank');
     }
 
     public function items()
     {
-    	return $this->hasMany('Item', 'player_id');
+    	return $this->belongsToMany('App\Item', 'p_items')->withTimestamps()
+                ->as('data')
+                ->withPivot('id', 'qty');
     }
 }
