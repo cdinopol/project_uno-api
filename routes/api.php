@@ -34,15 +34,19 @@ $api->version('v1', function ($api) {
 
 		// Player
 		$api->get('players', 'PlayerController@getPlayers');
-		$api->get('player[/{id}]', 'PlayerController@getPlayer');
+		$api->get('player[/{id:[0-9]*}]', 'PlayerController@getPlayer');
+		$api->get('player/chars', 'PlayerController@getChars');
+		$api->get('player/{id:[0-9]*}/chars', 'PlayerController@getChars');
+		$api->get('player/{id:[0-9]*}/items', 'PlayerController@getItems');
 
 		// Campaign
 		$api->get('campaigns', 'CampaignController@getCampaigns');
-		$api->get('campaign[/{id}]', 'CampaignController@getCampaign');
+		$api->get('campaign[/{world:[0-9]+}/{stage:[0-9]+}]', 'CampaignController@getCampaign');
 		$api->get('campaign/verify_win', 'CampaignController@verifyWin');
+		$api->post('campaign/save_chars', 'CampaignController@setPlayerChars');
 
 		// Characters
 		$api->get('chars', 'CharController@getChars');
-		$api->get('char[/{id}]', 'CharController@getChar');
+		$api->get('char[/{id:[0-9]*}]', 'CharController@getChar');
 	});
 });

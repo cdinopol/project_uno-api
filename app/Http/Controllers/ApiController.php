@@ -68,7 +68,7 @@ class ApiController extends BaseController
     * Auth: Carlo
     * Desc: failed post, put, delete operations
     */
-    protected function respondFailed($message = 'Dont do that boi!', $data = [])
+    protected function respondFailed($message = 'Failed!', $data = [])
 	{
 		return $this->setstatusCode(202)->respond([
 			'message' => $message,
@@ -80,7 +80,7 @@ class ApiController extends BaseController
     * Auth: Carlo
     * Desc: invalid input format
     */
-	protected function respondError($message)
+	protected function respondError($message = 'Dont do that boi!')
 	{
 		return $this->setstatusCode(422)->respond([
 			'message' => $message,
